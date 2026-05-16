@@ -1,162 +1,465 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Gill Zhu 作品集</title>
   <style>
-    /* 基础样式 */
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: "PingFang SC", sans-serif; }
-    body { background-color: #f5f3ee; color: #2f2f2f; line-height: 1.6; }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: "PingFang SC", "Helvetica Neue", Arial, sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      color: #2f2f2f;
+      line-height: 1.6;
+      /* 平整浅蓝色条纹纸背景 */
+      background-color: #f7fbff;
+      background-image: repeating-linear-gradient(
+        to bottom,
+        #f7fbff 0px,
+        #f7fbff 34px,
+        #cfe2f7 35px,
+        #f7fbff 36px
+      );
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1200px, calc(100% - 48px));
+      margin: 0 auto;
+    }
 
     /* 顶部导航 */
-    header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); box-shadow: 0 2px 6px rgba(0,0,0,0.05); z-index: 1000; }
-    nav { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; padding: 1rem 2rem; }
-    nav a { text-decoration: none; color: #234e78; margin-left: 1.5rem; transition: transform 0.2s, color 0.3s; }
-    nav a:hover { color: #FF6B6B; transform: scale(1.05); }
-
-    /* Hero 区 */
-    .hero { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 140px 2rem 4rem 2rem; }
-    /* 纸质背景 */
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: url("images/paper-lines.jpg") center/cover no-repeat;
-      opacity: 0.15;
-      z-index: -1;
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.84);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.06);
     }
-    .hero-text { flex: 1 1 300px; max-width: 600px; }
-    .hero-text h1 { font-size: 3rem; margin-bottom: 1rem; }
-    .hero-text p { font-size: 1.2rem; margin-bottom: 1rem; }
-    /* app轮播容器 */
-    .hero-carousel { flex: 1 1 300px; max-width: 400px; background: #fff; border-radius: 20px; padding: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.08);  }
-    .hero-carousel img { width: 100%; border-radius: 12px; }
 
-    /* 作品区 */
-    .portfolio { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-    .portfolio h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
-    .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
-    .card img { width: 100%; display: block; }
-    .card-body { padding: 1rem; }
-    .card-body h3 { margin-bottom: 0.5rem; font-size: 1.2rem; }
-    .card-body p { font-size: 0.95rem; color: #666; }
+    nav {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 18px;
+      font-weight: 500;
+      color: #2f2f2f;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 36px;
+    }
+
+    .nav-links a {
+      font-size: 16px;
+      font-weight: 600;
+      color: #234e78;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .nav-links a:hover {
+      opacity: 0.75;
+      transform: translateY(-1px);
+    }
+
+    /* Hero */
+    .hero-wrap {
+      padding: 48px 0 32px;
+    }
+
+    .hero {
+      background: rgba(232, 243, 255, 0.88);
+      border: 1px solid rgba(162, 192, 223, 0.35);
+      border-radius: 28px;
+      padding: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 48px;
+      box-shadow: 0 12px 30px rgba(74, 107, 140, 0.08);
+    }
+
+    .hero-text {
+      flex: 1 1 58%;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(44px, 7vw, 72px);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: #2f2f2f;
+    }
+
+    .hero-text p {
+      font-size: clamp(18px, 2.2vw, 24px);
+      color: #3f4d5c;
+      max-width: 680px;
+    }
+
+    .hero-photo {
+      flex: 0 0 320px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .hero-photo img {
+      width: 320px;
+      height: 320px;
+      object-fit: cover;
+      border-radius: 24px;
+      display: block;
+      background: #ffffff;
+      border: 8px solid rgba(255, 255, 255, 0.85);
+      box-shadow: 0 14px 30px rgba(74, 107, 140, 0.14);
+    }
+
+    /* 通用 section */
+    section {
+      padding: 48px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(34px, 4vw, 48px);
+      line-height: 1.15;
+      margin-bottom: 28px;
+      color: #2f2f2f;
+    }
+
+    /* 项目区 */
+    .portfolio .section-subtitle {
+      text-align: center;
+      color: #5c6773;
+      margin-bottom: 32px;
+      font-size: 17px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(48, 66, 84, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 30px rgba(48, 66, 84, 0.12);
+    }
+
+    .card img {
+      width: 100%;
+      height: 240px;
+      object-fit: cover;
+      display: block;
+      background: #eef3f8;
+    }
+
+    .card-body {
+      padding: 22px;
+    }
+
+    .card-body h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #2f2f2f;
+    }
+
+    .card-body p {
+      font-size: 16px;
+      color: #5c6773;
+    }
 
     /* 技能区 */
-    .skills { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
-    .skills h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
-    .skill-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
-    .skill { display: flex; flex-direction: column; align-items: center; background: #FFFAF8; padding: 1rem 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.3s; }
-    .skill:hover { transform: scale(1.05); }
-    .skill img { width: 50px; height: 50px; margin-bottom: 0.5rem; }
-    .skill p { font-size: 0.9rem; }
+    .skills-panel,
+    .about-panel,
+    .contact-panel {
+      background: rgba(255, 255, 255, 0.86);
+      border-radius: 24px;
+      padding: 36px;
+      box-shadow: 0 8px 24px rgba(48, 66, 84, 0.08);
+    }
 
-    /* 关于页 */
-    .about { max-width: 800px; margin: 4rem auto; padding: 0 2rem; }
-    .about h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
-    .about p { margin-bottom: 1rem; }
+    .skill-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+      margin-top: 10px;
+    }
 
-    /* 联系区 */
-    .contact { max-width: 600px; margin: 4rem auto; padding: 0 2rem; }
-    .contact h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
-    .contact form { display: flex; flex-direction: column; gap: 1rem; }
-    .contact input, .contact textarea { padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
-    .contact button { padding: 0.75rem; border: none; background: linear-gradient(120deg, #FF6B6B, #FF9F9F); color: #fff; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: background 0.3s; }
-    .contact button:hover { background: linear-gradient(120deg, #FF9F9F, #FF6B6B); }
+    .skill {
+      min-width: 130px;
+      text-align: center;
+      padding: 18px 20px;
+      border-radius: 16px;
+      background: #f7fbff;
+      border: 1px solid rgba(162, 192, 223, 0.28);
+      transition: transform 0.2s ease;
+    }
 
-    /* 响应式调整 */
-    @media(max-width: 768px) {
-      .hero { flex-direction: column; text-align: center; }
-      .hero-carousel { margin-top: 2rem; transform: rotate(0deg); }
+    .skill:hover {
+      transform: translateY(-2px);
+    }
+
+    .skill p {
+      font-size: 15px;
+      font-weight: 600;
+      color: #35516c;
+    }
+
+    /* 关于 */
+    .about-panel p {
+      font-size: 16px;
+      color: #4d5966;
+      margin-bottom: 14px;
+    }
+
+    /* 联系 */
+    .contact form {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .contact input,
+    .contact textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 14px;
+      border: 1px solid rgba(162, 192, 223, 0.45);
+      background: rgba(255, 255, 255, 0.9);
+      font-size: 16px;
+      outline: none;
+    }
+
+    .contact input:focus,
+    .contact textarea:focus {
+      border-color: #8eb3da;
+      box-shadow: 0 0 0 3px rgba(142, 179, 218, 0.14);
+    }
+
+    .contact button {
+      width: fit-content;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 999px;
+      background: #234e78;
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    .contact button:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    footer {
+      padding: 18px 0 40px;
+      text-align: center;
+      color: #6b7682;
+      font-size: 14px;
+    }
+
+    /* 响应式 */
+    @media (max-width: 960px) {
+      .hero {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 40px 28px;
+      }
+
+      .hero-photo {
+        width: 100%;
+        flex: none;
+        justify-content: flex-start;
+      }
+
+      .hero-photo img {
+        width: min(100%, 320px);
+        height: auto;
+        aspect-ratio: 1 / 1;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 32px, 1200px);
+      }
+
+      nav {
+        height: auto;
+        padding: 18px 0;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px 22px;
+      }
+
+      .hero-wrap {
+        padding-top: 28px;
+      }
+
+      .hero-text h1 {
+        margin-bottom: 18px;
+      }
+
+      .hero-text p {
+        font-size: 17px;
+      }
+
+      .skills-panel,
+      .about-panel,
+      .contact-panel {
+        padding: 24px;
+      }
     }
   </style>
 </head>
 <body>
-
   <!-- 顶部导航 -->
   <header>
-    <nav>
-      <div class="logo">Gill Zhu</div>
-      <div>
-        <a href="#hero">首页</a>
-        <a href="#portfolio">项目</a>
-        <a href="#skills">技能</a>
-        <a href="#about">关于</a>
-        <a href="#contact">联系</a>
-      </div>
-    </nav>
+    <div class="container">
+      <nav>
+        <div class="logo">Gill Zhu</div>
+        <div class="nav-links">
+          <a href="#hero">首页</a>
+          <a href="#portfolio">项目</a>
+          <a href="#skills">技能</a>
+          <a href="#about">关于</a>
+          <a href="#contact">联系</a>
+        </div>
+      </nav>
+    </div>
   </header>
 
-  <!-- Hero 区 -->
-  <section class="hero" id="hero">
-    <div class="hero-text">
-      <h1>Gill Zhu</h1>
-      <p>App开发与设计，探索创意与交互的平衡，展示作品与项目经验。</p>
-    </div>
-    <div class="hero-carousel">
-      <img src="images/app-home1.png" alt="App 首页截图1">
-      <!-- 可以继续添加轮播图片 -->
-    </div>
-  </section>
+  <!-- Hero -->
+  <div class="hero-wrap" id="hero">
+    <div class="container">
+      <section class="hero">
+        <div class="hero-text">
+          <h1>Gill Zhu</h1>
+          <p>
+            App开发与设计，探索创意与交互的平衡，展示作品与项目经验。
+          </p>
+        </div>
 
-  <!-- 项目区 -->
+        <div class="hero-photo">
+          <!-- 把下面这张图替换成你的个人照片 -->
+          <img src="images/profile.jpg" alt="Gill Zhu 个人照片" />
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- 项目 -->
   <section class="portfolio" id="portfolio">
-    <h2>最近的作品</h2>
-    <div class="grid">
-      <div class="card">
-        <img src="images/app1.jpg" alt="作品1">
-        <div class="card-body">
-          <h3>月经记录</h3>
-          <p>低成本记录月经周期，轻洞察相关趋势。</p>
-        </div>
-      </div>
-      <div class="card">
-        <img src="images/app2.jpg" alt="作品2">
-        <div class="card-body">
-          <h3>个人博客</h3>
-          <p>表达为主。</p>
-        </div>
+    <div class="container">
+      <h2 class="section-title">最近的作品</h2>
+      <p class="section-subtitle">主要展示我近期的 app / 网站项目。</p>
+
+      <div class="grid">
+        <article class="card">
+          <img src="images/app1.jpg" alt="月经记录 App 项目截图" />
+          <div class="card-body">
+            <h3>月经记录</h3>
+            <p>低成本记录月经周期，轻洞察相关趋势。</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="images/app2.jpg" alt="个人博客项目截图" />
+          <div class="card-body">
+            <h3>个人博客</h3>
+            <p>以表达和整理个人内容为主。</p>
+          </div>
+        </article>
       </div>
     </div>
   </section>
 
-  <!-- 技能区 -->
+  <!-- 技能 -->
   <section class="skills" id="skills">
-    <h2>熟悉的工具有：</h2>
-    <div class="skill-list">
-      <div class="skill">
-        <img src="images/icon-html.png" alt="HTML">
-        <p>HTML</p>
-      </div>
-      <div class="skill">
-        <img src="images/icon-css.png" alt="CSS">
-        <p>CSS</p>
-      </div>
-      <div class="skill">
-        <img src="images/icon-js.png" alt="JavaScript">
-        <p>JavaScript</p>
+    <div class="container">
+      <h2 class="section-title">技能</h2>
+      <div class="skills-panel">
+        <div class="skill-list">
+          <div class="skill"><p>HTML / CSS</p></div>
+          <div class="skill"><p>JavaScript</p></div>
+          <div class="skill"><p>Swift / SwiftUI</p></div>
+          <div class="skill"><p>UI / UX</p></div>
+          <div class="skill"><p>产品设计</p></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- 关于页 -->
+  <!-- 关于 -->
   <section class="about" id="about">
-    <h2>About me: </h2>
-    <p>对什么都有一点兴趣。</p>
+    <div class="container">
+      <h2 class="section-title">关于</h2>
+      <div class="about-panel">
+        <p>这里可以放你的教育经历、工作背景，以及你为什么开始做 app / 产品。</p>
+        <p>如果你愿意，也可以写一点你的设计理念、兴趣方向，或者目前在探索的主题。</p>
+      </div>
+    </div>
   </section>
 
-  <!-- 联系区 -->
+  <!-- 联系 -->
   <section class="contact" id="contact">
-    <h2>联系我</h2>
-    <form>
-      <input type="text" placeholder="姓名" required>
-      <input type="email" placeholder="邮箱" required>
-      <textarea placeholder="留言内容" rows="5" required></textarea>
-      <button type="submit">发送</button>
-    </form>
+    <div class="container">
+      <h2 class="section-title">联系</h2>
+      <div class="contact-panel">
+        <form>
+          <input type="text" placeholder="姓名" required />
+          <input type="email" placeholder="邮箱" required />
+          <textarea placeholder="留言内容" rows="5" required></textarea>
+          <button type="submit">发送</button>
+        </form>
+      </div>
+    </div>
   </section>
 
+  <footer>
+    <div class="container">
+      <p>© 2026 Gill Zhu. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
