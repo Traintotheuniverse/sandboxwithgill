@@ -7,18 +7,7 @@
   <style>
     /* 基础样式 */
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: "PingFang SC", sans-serif; }
-    body { background-color: #f5f3ee; color: #234e78; line-height: 1.6; }
-
-    /* 背景揉皱纸 */
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url("images/wrinkled-paper.png") center/cover no-repeat;
-      opacity: 0.15;
-      pointer-events: none;
-      z-index: -1;
-    }
+    body { background-color: #f5f3ee; color: #2f2f2f; line-height: 1.6; }
 
     /* 顶部导航 */
     header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.85); backdrop-filter: blur(6px); box-shadow: 0 2px 6px rgba(0,0,0,0.05); z-index: 1000; }
@@ -27,16 +16,26 @@
     nav a:hover { color: #FF6B6B; transform: scale(1.05); }
 
     /* Hero 区 */
-    .hero { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 140px 2rem 4rem 2rem; }
+    .hero { position: relative; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; padding: 140px 2rem 4rem 2rem; }
+    /* 纸质背景 */
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: url("images/paper-lines.jpg") center/cover no-repeat;
+      opacity: 0.15;
+      z-index: -1;
+    }
     .hero-text { flex: 1 1 300px; max-width: 600px; }
     .hero-text h1 { font-size: 3rem; margin-bottom: 1rem; transform: rotate(-1deg); }
     .hero-text p { font-size: 1.2rem; margin-bottom: 1rem; }
-    .hero-img { flex: 1 1 300px; max-width: 400px; transform: rotate(1deg); }
-    .hero-img img { width: 100%; border-radius: 12px; box-shadow: 0 8px 20px rgba(0,0,0,0.08); }
+    /* app轮播容器 */
+    .hero-carousel { flex: 1 1 300px; max-width: 400px; background: #fff; border-radius: 20px; padding: 1rem; box-shadow: 0 8px 20px rgba(0,0,0,0.08); transform: rotate(1deg); }
+    .hero-carousel img { width: 100%; border-radius: 12px; }
 
     /* 作品区 */
     .portfolio { max-width: 1200px; margin: 2rem auto; padding: 0 2rem; }
-    .portfolio h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; transform: rotate(-1deg); }
+    .portfolio h2 { font-size: 2rem; margin-bottom: 2rem; text-align: center; }
     .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; }
     .card { background: #fff; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; cursor: pointer; }
     .card:hover { transform: translateY(-6px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
@@ -47,7 +46,7 @@
 
     /* 技能区 */
     .skills { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; }
-    .skills h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; transform: rotate(1deg); }
+    .skills h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
     .skill-list { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.5rem; }
     .skill { display: flex; flex-direction: column; align-items: center; background: #FFFAF8; padding: 1rem 1.5rem; border-radius: 10px; box-shadow: 0 2px 8px rgba(0,0,0,0.05); transition: transform 0.3s; }
     .skill:hover { transform: scale(1.05); }
@@ -56,12 +55,12 @@
 
     /* 关于页 */
     .about { max-width: 800px; margin: 4rem auto; padding: 0 2rem; }
-    .about h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; transform: rotate(-1deg); }
+    .about h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
     .about p { margin-bottom: 1rem; }
 
     /* 联系区 */
     .contact { max-width: 600px; margin: 4rem auto; padding: 0 2rem; }
-    .contact h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; transform: rotate(1deg); }
+    .contact h2 { font-size: 2rem; margin-bottom: 1.5rem; text-align: center; }
     .contact form { display: flex; flex-direction: column; gap: 1rem; }
     .contact input, .contact textarea { padding: 0.75rem; border: 1px solid #ccc; border-radius: 6px; font-size: 1rem; }
     .contact button { padding: 0.75rem; border: none; background: linear-gradient(120deg, #FF6B6B, #FF9F9F); color: #fff; border-radius: 6px; cursor: pointer; font-size: 1rem; transition: background 0.3s; }
@@ -70,7 +69,7 @@
     /* 响应式调整 */
     @media(max-width: 768px) {
       .hero { flex-direction: column; text-align: center; }
-      .hero-img { margin-top: 2rem; transform: rotate(0deg); }
+      .hero-carousel { margin-top: 2rem; transform: rotate(0deg); }
     }
   </style>
 </head>
@@ -82,7 +81,7 @@
       <div class="logo">Gill Zhu</div>
       <div>
         <a href="#hero">首页</a>
-        <a href="#portfolio">作品</a>
+        <a href="#portfolio">项目</a>
         <a href="#skills">技能</a>
         <a href="#about">关于</a>
         <a href="#contact">联系</a>
@@ -96,27 +95,28 @@
       <h1>Gill Zhu</h1>
       <p>App开发与设计，探索创意与交互的平衡，展示作品与项目经验。</p>
     </div>
-    <div class="hero-img">
-      <img src="images/your-photo.jpg" alt="头像">
+    <div class="hero-carousel">
+      <img src="images/app-home1.png" alt="App 首页截图1">
+      <!-- 可以继续添加轮播图片 -->
     </div>
   </section>
 
-  <!-- 作品区 -->
+  <!-- 项目区 -->
   <section class="portfolio" id="portfolio">
-    <h2>精选作品</h2>
+    <h2>最近的作品</h2>
     <div class="grid">
       <div class="card">
         <img src="images/app1.jpg" alt="作品1">
         <div class="card-body">
-          <h3>作品名称1</h3>
-          <p>简短描述，涉及技术、设计或功能亮点。</p>
+          <h3>月经记录</h3>
+          <p>低成本记录月经周期，轻洞察相关趋势。</p>
         </div>
       </div>
       <div class="card">
         <img src="images/app2.jpg" alt="作品2">
         <div class="card-body">
-          <h3>作品名称2</h3>
-          <p>简短描述，涉及技术、设计或功能亮点。</p>
+          <h3>个人博客</h3>
+          <p>表达为主。</p>
         </div>
       </div>
     </div>
@@ -124,7 +124,7 @@
 
   <!-- 技能区 -->
   <section class="skills" id="skills">
-    <h2>技能与工具</h2>
+    <h2>熟悉的工具有：</h2>
     <div class="skill-list">
       <div class="skill">
         <img src="images/icon-html.png" alt="HTML">
@@ -143,9 +143,8 @@
 
   <!-- 关于页 -->
   <section class="about" id="about">
-    <h2>关于我</h2>
-    <p>教育经历、工作经验、项目经历等简要介绍。</p>
-    <p>可以写一些兴趣爱好或个人特色，让页面更生动。</p>
+    <h2>About me: </h2>
+    <p>对什么都有一点兴趣。</p>
   </section>
 
   <!-- 联系区 -->
